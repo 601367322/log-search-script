@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         local-log-helper
-// @namespace    log
+// @namespace    https://github.com/601367322/log-search-script/blob/main/log-helper-script.js
 // @version      0.0.1
 // @description
 // @author       Sen
@@ -21,6 +21,7 @@
     script.text = start;
     document.head.appendChild(script);
     setTimeout(() => {
+        //1秒后执行脚本，因为有元素是异步加载的，如果立即执行就获取不到。如果网速差，时间还需要设置更长。
         start();
     }, 1000)
 })();
