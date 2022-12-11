@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         local-log-helper
 // @namespace    https://github.com/601367322/log-search-script/blob/main/log-helper-script.js
-// @version      0.0.1
+// @version      0.0.2
 // @description
 // @author       Sen
 // @match        http://monitor.yy.isd.com/trtc/monitor/*
@@ -9,7 +9,6 @@
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setValue
 // @grant        GM_getValue
-// @require http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js
 // ==/UserScript==
 
 (async function () {
@@ -27,9 +26,8 @@
 })();
 
 async function start() {
-    await loadJS("https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js");
     if (location.href.indexOf('txtools-china.woa.com') > -1) {
-        var inputs = $('input');
+        var inputs = document.getElementsByTagName('input');
         inputs[0].value = GM_getValue('sdkAppId')
         inputs[1].value = GM_getValue('userId')
         var time = GM_getValue('time')
@@ -40,11 +38,9 @@ async function start() {
         inputs[1].dispatchEvent(new Event('input'));
         // inputs[4].dispatchEvent(new Event('input'));
         // inputs[5].dispatchEvent(new Event('input'));
-        console.log($('.trtc-log-overseas'))
-        console.log($('.trtc-log-overseas').find('button')[0])
-        $('.trtc-log-overseas').find('button')[0].click();
+        document.getElementsByClassName('trtc-log-overseas')[0].getElementsByTagName('button')[0].click();
     } else {
-        var uesrContainer = $(".call-details-user-container")[0]
+        var uesrContainer = document.getElementsByClassName("call-details-user-container")[0]
         var headerSend = uesrContainer.getElementsByClassName("header-send")[0]
         var headerReceive = uesrContainer.getElementsByClassName("header-receive")[0]
         var btnSend = document.createElement("div")
@@ -68,8 +64,8 @@ async function start() {
         }
 
         function requestLocalLog(userId) {
-            var sdkAppId = $('.tea-text-overflow')[6].getAttribute('title')
-            var time = $('.tea-text-overflow')[8].getAttribute('title')
+            var sdkAppId = document.getElementsByClassName('tea-text-overflow')[6].getAttribute('title')
+            var time = document.getElementsByClassName('tea-text-overflow')[8].getAttribute('title')
             console.log(userId + "\t" + sdkAppId)
             GM_setValue('userId', userId);
             GM_setValue('sdkAppId', sdkAppId);
